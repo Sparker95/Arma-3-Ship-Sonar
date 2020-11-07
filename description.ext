@@ -1,0 +1,19 @@
+class CfgFunctions {
+	class FLS
+	{
+        class FLS {
+            file = "FLS";
+            class findSensorPos { headerType = -1; };
+            class scan { headerType = -1; };
+            class ui_graphToUI { headerType = -1; };
+            class ui_graphCreate { headerType = -1; };
+            class ui_graphPlotData { headerType = -1; };
+            class ui_graphSetLimits { headerType = -1; };
+            class ui_graphPlotAxes { headerType = -1; };
+            class ui_graphSetGridStep { headerType = -1; };
+            class ui_graphUpdateLables { headerType = -1; };
+        };
+	};
+};
+
+allowFunctionsRecompile = 1;
