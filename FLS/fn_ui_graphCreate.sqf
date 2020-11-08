@@ -4,24 +4,25 @@
 // Sets its size and decorates it
 // _ctrl - group control
 
-params ["_display"];
+params ["_display", ["_parentGroup", controlNull]];
 
+// Delete old graph if it exists
 if (!isNil {uiNamespace getVariable "FLS_graphGroup"}) then {
-    ctrlDelete (uiNamespace getVariable "FLS_graphGroup");
+    [uiNamespace getVariable "FLS_graphGroup"] call FLS_fnc_ui_graphDelete;
 };
 
-private _ctrlGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
+private _ctrlGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1, _parentGroup];
 uiNamespace setVariable ["FLS_graphGroup", _ctrlGroup];
 
 // Size of this control
 private _width = 0.5;
-private _height = 0.5;
+private _height = 0.455;
 _ctrlGroup ctrlSetPosition [0, 0, _width, _height];
 
 // Background
 private _ctrlBackground = _display ctrlCreate ["RscText", -1, _ctrlGroup];
 _ctrlBackground ctrlSetPosition [0, 0, _width, _height];
-_ctrlBackground ctrlSetBackgroundColor [22/255, 67/255, 140/255, 0.9];
+//_ctrlBackground ctrlSetBackgroundColor [22/255, 67/255, 140/255, 0.9];
 _ctrlBackground ctrlCommit 0;
 _ctrlGroup setVariable ["ctrlBackground", _ctrlBackground];
 
@@ -86,8 +87,9 @@ _ctrlGroup setVariable ["ylablemid", _ylablemid];
 
 // Ship picture
 private _ctrlShipPic = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
-_ctrlShipPic ctrlSetPosition [0, -0.04, 0.08, 0.08];
-_ctrlShipPic ctrlSetBackgroundColor [1, 1, 1, 1];
+_ctrlShipPic ctrlSetPosition [0.05, -0.04, 0.08, 0.08];
+//_ctrlShipPic ctrlSetBackgroundColor [1, 1, 1, 1];
+_ctrlShipPic ctrlSetTextColor [0.9, 0.9, 0.9, 1];
 _ctrlShipPic ctrlSetText "FLS\IconShip.paa";
 _ctrlShipPic ctrlCommit 0;
 

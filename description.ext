@@ -1,17 +1,41 @@
+
+//#define _HEADER headerType = -1;
+#define _HEADER
+
 class CfgFunctions {
 	class FLS
 	{
         class FLS {
             file = "FLS";
-            class findSensorPos { headerType = -1; };
-            class scan { headerType = -1; };
-            class ui_graphToUI { headerType = -1; };
-            class ui_graphCreate { headerType = -1; };
-            class ui_graphPlotData { headerType = -1; };
-            class ui_graphSetLimits { headerType = -1; };
-            class ui_graphPlotAxes { headerType = -1; };
-            class ui_graphSetGridStep { headerType = -1; };
-            class ui_graphUpdateLables { headerType = -1; };
+
+            // Scanning ang other functions
+            class findSensorPos { _HEADER };
+            class scan { _HEADER };
+            class update { _HEADER };
+            class onEachFrame { _HEADER };
+            class preInit { preInit = 1; _HEADER };
+            class activate { _HEADER };
+
+
+            // Graph plotter control
+            class ui_graphCreate { _HEADER };
+            class ui_graphDelete { _HEADER };
+            class ui_graphToUI { _HEADER };
+
+            class ui_graphPlotData { _HEADER };
+            class ui_graphPlotAxes { _HEADER };
+            class ui_graphUpdateLables { _HEADER };
+            class ui_graphRefresh { _HEADER };
+
+            class ui_graphSetDataValues { _HEADER };
+            class ui_graphSetLimits { _HEADER };
+            class ui_graphSetGridStep { _HEADER };
+
+
+
+            // Whole panel
+            class ui_panelCreate { _HEADER };
+            class ui_panelDelete { _HEADER };
         };
 	};
 };
