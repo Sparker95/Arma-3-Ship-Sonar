@@ -87,10 +87,10 @@ _ctrlGroup setVariable ["ylablemid", _ylablemid];
 
 // Ship picture
 private _ctrlShipPic = _display ctrlCreate ["RscPicture", -1, _ctrlGroup];
-_ctrlShipPic ctrlSetPosition [0.05, -0.04, 0.08, 0.08];
+_ctrlShipPic ctrlSetPosition [0.01, -0.04, 0.08, 0.08];
 //_ctrlShipPic ctrlSetBackgroundColor [1, 1, 1, 1];
 _ctrlShipPic ctrlSetTextColor [0.9, 0.9, 0.9, 1];
-_ctrlShipPic ctrlSetText "FLS\IconShip.paa";
+_ctrlShipPic ctrlSetText "ship_sonar\IconShip.paa";
 _ctrlShipPic ctrlCommit 0;
 
 

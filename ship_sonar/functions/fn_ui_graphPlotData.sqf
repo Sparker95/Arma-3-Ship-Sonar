@@ -26,7 +26,7 @@ private _getNewPoint = {
     if (_nextPointID >= (count _dataControls)) then {
         // There are no more points, add one more
         _ctrlPoint = (_ctrlGroup getVariable "parentDisplay") ctrlCreate ["RscPicture", -1, _ctrlGroup];
-        _ctrlPoint ctrlSetText "FLS\Dot.paa";
+        _ctrlPoint ctrlSetText "ship_sonar\Dot.paa";
         _dataControls pushBack _ctrlPoint;
         _return = _ctrlPoint;
     } else {

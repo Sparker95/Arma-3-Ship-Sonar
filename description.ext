@@ -6,7 +6,7 @@ class CfgFunctions {
 	class FLS
 	{
         class FLS {
-            file = "FLS";
+            file = "ship_sonar\functions";
 
             // Scanning ang other functions
             class findSensorPos { _HEADER };
@@ -15,7 +15,9 @@ class CfgFunctions {
             class onEachFrame { _HEADER };
             class preInit { preInit = 1; _HEADER };
             class activate { _HEADER };
-
+            class deactivate { _HEADER };
+            class actionToggle { _HEADER };
+            class addActionToggle { _HEADER };
 
             // Graph plotter control
             class ui_graphCreate { _HEADER };
@@ -31,8 +33,6 @@ class CfgFunctions {
             class ui_graphSetLimits { _HEADER };
             class ui_graphSetGridStep { _HEADER };
 
-
-
             // Whole panel
             class ui_panelCreate { _HEADER };
             class ui_panelDelete { _HEADER };
@@ -40,4 +40,11 @@ class CfgFunctions {
 	};
 };
 
-allowFunctionsRecompile = 1;
+//allowFunctionsRecompile = 1;
+
+respawn = 2; // 2 - instant
+respawnButton = 1; // 0: disabled - 1: enabled. Default: 1
+respawnDelay = 2; // Default: ?
+// respawnOnStart = 1;
+DisabledAI = 1;
+respawnTemplates[] = {"Counter"};
