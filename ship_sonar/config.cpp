@@ -5,7 +5,7 @@ class CfgPatches
 		// Meta information for editor
 		name = "Ship Sonar";
 		author = "Sparker";
-		url = "https://youtu.be/cvh0nX08nRw";
+		url = "";
 
 		// Minimum compatible version. When the game's version is lower, pop-up warning will appear when launching the game.
 		requiredVersion = 1.60; 
@@ -36,6 +36,7 @@ class CfgFunctions {
             class activate { _HEADER };
             class deactivate { _HEADER };
             class actionToggle { _HEADER };
+            class addActionToggle { _HEADER };
 
             // Graph plotter control
             class ui_graphCreate { _HEADER };

@@ -124,18 +124,24 @@ if (FLS_scaleUpdateTimer > 0.8) then {
         //private _maxDepth = selectMax _allDepth;
         private _depth = FLS_lastDepth;
         switch true do {
-            case (_depth > 20*0.65): {
-                // 100m limit
+            // 100, 50, 20, 10, 4
+            case (_depth > 30): {
                 [_graph, 25, 25] call FLS_fnc_ui_graphSetGridStep;
                 [_graph, 100, 100] call FLS_fnc_ui_graphSetLimits;
             };
-            case (_depth > 3.5): {
-                // 20m limit
+            case (_depth > 16): {
+                [_graph, 25, 10] call FLS_fnc_ui_graphSetGridStep;
+                [_graph, 100, 40] call FLS_fnc_ui_graphSetLimits;
+            };
+            case (_depth > 8): {
                 [_graph, 25, 5] call FLS_fnc_ui_graphSetGridStep;
                 [_graph, 100, 20] call FLS_fnc_ui_graphSetLimits;
             };
+            case (_depth > 3.5): {
+                [_graph, 25, 2.5] call FLS_fnc_ui_graphSetGridStep;
+                [_graph, 100, 10] call FLS_fnc_ui_graphSetLimits;
+            };
             default {
-                // 4m limit
                 [_graph, 25, 1] call FLS_fnc_ui_graphSetGridStep;
                 [_graph, 100, 4] call FLS_fnc_ui_graphSetLimits;
             };
