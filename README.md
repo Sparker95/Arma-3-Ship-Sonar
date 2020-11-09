@@ -1,10 +1,12 @@
 # Arma-3-Ship-Sonar
 
-A mod for Arma game which adds a forward-scan sonar:
+**A mod for Arma which adds a forward-scan sonar:**
+
+![](https://i.imgur.com/avWAjJE.png)
 
 Demo: https://youtu.be/LZUbg0-HDp4
 
-Links:
+# Links:
 
 Workshop: https://steamcommunity.com/sharedfiles/filedetails/?id=2281685552
 
