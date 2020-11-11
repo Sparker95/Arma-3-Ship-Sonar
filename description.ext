@@ -48,3 +48,5 @@ respawnDelay = 2; // Default: ?
 // respawnOnStart = 1;
 DisabledAI = 1;
 respawnTemplates[] = {"Counter"};
+
+allowFunctionsRecompile = 1;
