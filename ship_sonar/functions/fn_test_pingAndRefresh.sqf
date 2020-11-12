@@ -25,7 +25,7 @@ private _graphCtrl = uiNamespace getVariable "FLS_graphGroup";
 
 // Convert scan data into proper coordinates
 private _plotData = _scanData apply {
-    _x params ["_angle", "_posIntersect", "_distance", "_cos"];
+    _x params ["_angle", "_distance", "_cos", "_posIntersect"];
     private _distanceProjected = _distance * (cos _angle);
     private _depth = _distance * (sin _angle);
     // [minFrom, maxFrom, value, minTo, maxTo, clip]

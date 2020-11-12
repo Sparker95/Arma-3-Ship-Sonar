@@ -26,12 +26,11 @@ if (FLS_pingTimer > 0.2) then {
     };
 
     private _scanData = [ 
-                            vehicle player, 
-                            _sensorPos, 
-                            0,  // Angle start
-                            90, // Angle end
-                            1,  // Resolution, degrees
-                            100 // Distance, meters
+                            vehicle player,
+                            0, // Direction offset - 0 - we scan directly ahead 
+                            100, // Distance
+                            _sensorPos,
+                            selectRandom FLS_positionsEndLocal_basicFLS
     ] call FLS_fnc_scan;
 
     #ifdef FLS_DEBUG
@@ -44,7 +43,7 @@ if (FLS_pingTimer > 0.2) then {
     // X is projected distance of the point
     // Y is calculated depth of the point
     private _plotData = _scanData apply {
-        _x params ["_angle", "_posIntersect", "_distance", "_cos"];
+        _x params ["_angle", "_distance", "_cos"];
         private _distanceProjected = _distance * (cos _angle);
         private _depth = _distance * (sin _angle);
         // [minFrom, maxFrom, value, minTo, maxTo, clip]
@@ -62,7 +61,7 @@ if (FLS_pingTimer > 0.2) then {
     // Recalculate depth
     if (count _scanData > 0) then {
         private _lastPoint = _scanData select (count _scanData - 1);
-        private _depth = _lastPoint#2;
+        private _depth = _lastPoint#1;
         FLS_lastDepth = _depth;
     } else {
         FLS_lastDepth = -1;

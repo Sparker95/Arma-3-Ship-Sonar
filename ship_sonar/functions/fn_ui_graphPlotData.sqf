@@ -39,7 +39,7 @@ private _getNewPoint = {
 
 // Plot new data
 {
-    _x params ["_xPosGraph", "_yPosGraph", "_color"];
+    _x params ["_xPosGraph", "_yPosGraph", "_color", "_size"];
     private _posUI = [_ctrlGroup, _xPosGraph, _yPosGraph] call FLS_fnc_ui_graphToUI;
     private _ctrlPoint = call _getNewPoint;
     _ctrlPoint ctrlSetPosition [(_posUI#0) - _pointWidth/2, (_posUI#1) - _pointHeight/2, _pointWidth, _pointHeight];

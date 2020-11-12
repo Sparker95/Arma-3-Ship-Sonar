@@ -6,57 +6,18 @@ Scan the surface ahead.
 
 params [
         ["_veh", objNull, [objNull]],
+        ["_dirOffset", 0, [0]], // Direction offset from vehicle's bearing
+        ["_maxDist", 0, [0]],
         ["_sensorOffset", [], [[]]],
-        ["_angleStart", 0, [0]],    // 0 ... 90
-        ["_angleEnd", 0, [0]],      // 0 ... 90
-        ["_angleResolution", 0, [0]],
-        ["_maxDist", 0, [0]]
+        ["_positionsEndLocal", [], [[]]]
     ];
 
     #ifdef FLS_DEBUG
     diag_log format ["FLS: scan: %1", _this];
     #endif
 
-// Beam width in degrees
-private _beamWidth = 8;
-
 // Establish coordinate system, as if our vehicle was perfectly horizontal
-private _dir = direction _veh;
-private _vecsFwdLocal = [];  // We alternate forward vectors a little to simulate beam width
-
-ASP_SCOPE_START(makeRandomVectors);
-for "_i" from 0 to 20 do {
-    private _randomDir = -_beamWidth/2 + random _beamWidth;
-    _vecsFwdLocal pushBack [sin (_randomDir), cos (_randomDir), 0];
-};
-ASP_SCOPE_END(makeRandomVectors);
-
-// Prepare an array of angles to scan
-private _angles = [];
-private _angle = _angleStart;
-while {_angle < _angleEnd} do { 
-    private _angleIncrement = (10*((sin _angle)^2) max 0.1);
-    _angle = _angle + _angleIncrement;
-    _angles pushBack _angle;
-};
-
-// Prepare an array of points to scan
-ASP_SCOPE_START(prepareScanVectors);
-private _positionsEndLocal = _angles apply 
-{
-    private _angle = _x;
-    private _posEndLocal = ((selectRandom _vecsFwdLocal) vectorMultiply (_maxDist*(cos _angle)));
-    _posEndLocal = _posEndLocal vectorAdd ([0, 0, 1] vectorMultiply (-_maxDist*(sin _angle)));
-    [_angle, _posEndLocal];
-};
-#ifdef FLS_DEBUG
-diag_log format ["FLS: prepareScanVectors:", _positionsEndLocal];
-{
-    diag_log format ["  %1", _x];
-} forEach _positionsEndLocal;
-#endif
-private _posEndWorld = _posStartWorld;
-ASP_SCOPE_END(prepareScanVectors);
+private _dir = (direction _veh) + _dirOffset;
 
 // Prepare a transform which we will use to transform scan vectors according to needed rotation
 private _posStartWorld = _veh modelToWorldWorld _sensorOffset;
@@ -73,13 +34,13 @@ _transformObject setDir _dir; // Will discard roll and pitch
 private _raycastData = [];
 ASP_SCOPE_START(scanAngles);
 private _driver = driver _veh;
-{ // forEach _angles;
+{ // forEach _positionsEndLocal;
     ASP_SCOPE_START(scanOneAngle);
 
     _x params ["_angle", "_posEndLocal"];
 
     ASP_SCOPE_START(transformVectors);
-    private _posEndWorld = _transformObject modelToWorldWorld _posEndLocal;
+    private _posEndWorld = _transformObject modelToWorldWorld (_posEndLocal vectorMultiply _maxDist);
     ASP_SCOPE_END(transformVectors);
 
     ASP_SCOPE_START(lineIntersectsSurfaces);
@@ -96,16 +57,15 @@ private _driver = driver _veh;
         private _distance = _posStartWorld vectorDistance _posIntersectWorld;
         _raycastData pushBack [
             _angle,
-            _posIntersectWorld,
             _distance,
             _cos
-            #ifdef DEBUG
-            ,
+            #ifdef FLS_DEBUG
+            ,_posIntersectWorld,
             _posStartWorld,
             _posEndWorld
             #endif
         ];
-        /*
+        
         #ifdef FLS_DEBUG
         diag_log format ["FLS: angle: %1, intersection: %2, distance: %3, cos: %4",
                             _angle,
@@ -113,7 +73,7 @@ private _driver = driver _veh;
                             _distance,
                             _cos];
         #endif
-        */
+        
     };
     ASP_SCOPE_END(processRaycastResults);
     
@@ -132,13 +92,14 @@ if (isNil "FLS_markers") then {
 { deleteVehicle _x; } forEach FLS_markers;
 FLS_markers = [];
 {
-    _x params ["_angle", "_posIntersect", "_distance", "_cos", "_posStart", "_posEnd"];
+    _x params ["_angle", "_distance", "_cos", "_posIntersect", "_posStart", "_posEnd"];
     private _arrow = "Sign_Arrow_F" createVehicle [0,0,0];
     _arrow setPosASL _posIntersect;
     FLS_markers pushBack _arrow;
     _arrow setVariable ["pos0AGL", ASLToAGL _posStart];
     _arrow setVariable ["pos1AGL", ASLToAGL _posIntersect];
 } forEach _raycastData;
+
 
 if (isNil "FLS_DebugPFH") then {
     FLS_DebugPFH = addMissionEventHandler ["Draw3D", {
@@ -152,6 +113,8 @@ if (isNil "FLS_DebugPFH") then {
         } forEach FLS_markers;
     }];
 };
+
+
 #endif
 
 // Return

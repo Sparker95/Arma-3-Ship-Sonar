@@ -8,14 +8,14 @@ class EditorData
 	toggles=522;
 	class ItemIDProvider
 	{
-		nextID=31;
+		nextID=47;
 	};
 	class Camera
 	{
-		pos[]={2024.3967,27.786419,1317.1135};
-		dir[]={0.17649983,-0.45792079,-0.87137365};
-		up[]={0.090945207,0.88889438,-0.44898897};
-		aside[]={-0.9801544,3.7733116e-008,-0.19853383};
+		pos[]={1967.0442,301.85919,1213.0203};
+		dir[]={0.069864012,-0.98235154,0.17361355};
+		up[]={0.36673048,0.18700369,0.91133481};
+		aside[]={0.92772102,-1.4671241e-006,-0.37332237};
 	};
 };
 binarizationWanted=0;
@@ -25,14 +25,16 @@ addons[]=
 	"A3_Characters_F",
 	"A3_Characters_F_Exp_Civil",
 	"A3_Boat_F_Gamma_Boat_Civil_01",
-	"A3_Boat_F_Boat_Transport_01",
-	"A3_Boat_F_Exp_Scooter_Transport_01"
+	"A3_Boat_F_Exp_Scooter_Transport_01",
+	"A3_Air_F_Heli_Heli_Transport_03",
+	"ace_realisticnames",
+	"A3_Air_F_EPC_Plane_CAS_01"
 };
 class AddonsMetaData
 {
 	class List
 	{
-		items=6;
+		items=7;
 		class Item0
 		{
 			className="A3_Structures_F_Mark";
@@ -63,15 +65,22 @@ class AddonsMetaData
 		};
 		class Item4
 		{
-			className="A3_Boat_F";
-			name="Arma 3 Alpha - Boats and Submersibles";
+			className="A3_Boat_F_Exp";
+			name="Arma 3 Apex - Boats and Submersibles";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
 		class Item5
 		{
-			className="A3_Boat_F_Exp";
-			name="Arma 3 Apex - Boats and Submersibles";
+			className="A3_Air_F_Heli";
+			name="Arma 3 Helicopters - Aircraft";
+			author="Bohemia Interactive";
+			url="https://www.arma3.com";
+		};
+		class Item6
+		{
+			className="A3_Air_F_EPC";
+			name="Arma 3 Win Episode - Aircraft";
 			author="Bohemia Interactive";
 			url="https://www.arma3.com";
 		};
@@ -89,7 +98,7 @@ class Mission
 		timeOfChanges=1800.0002;
 		startWeather=0.30000001;
 		startWind=0.1;
-		startWaves=0.10629077;
+		startWaves=0.3377445;
 		forecastWeather=0.30000001;
 		forecastWind=0.1;
 		forecastWaves=0.10906345;
@@ -157,22 +166,6 @@ class Mission
 		};
 		class Item3
 		{
-			dataType="Object";
-			class PositionInfo
-			{
-				position[]={1996.4982,-3.9616175,1251.5667};
-			};
-			side="Empty";
-			flags=1;
-			class Attributes
-			{
-			};
-			id=21;
-			type="Land_VR_Shape_01_cube_1m_F";
-			atlOffset=2.6317291;
-		};
-		class Item4
-		{
 			dataType="Group";
 			side="Civilian";
 			class Entities
@@ -183,7 +176,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={2057.656,0.0014388561,1270.1747};
+						position[]={1953.8876,0.0014388561,1207.1578};
+						angles[]={0,0.36797231,0};
 					};
 					side="Civilian";
 					flags=2;
@@ -193,7 +187,7 @@ class Mission
 					};
 					id=24;
 					type="C_man_1";
-					atlOffset=3.6356668;
+					atlOffset=16.219156;
 				};
 			};
 			class Attributes
@@ -212,7 +206,7 @@ class Mission
 					{
 						linkID=0;
 						item0=24;
-						item1=23;
+						item1=31;
 						class CustomData
 						{
 							role=1;
@@ -221,68 +215,176 @@ class Mission
 				};
 			};
 			id=22;
-			atlOffset=3.6356668;
+			atlOffset=16.219156;
 		};
-		class Item5
+		class Item4
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2057.656,1.2970161,1270.1246};
+				position[]={1953.8876,1.2970161,1207.1078};
+				angles[]={0,0.36797231,0};
 			};
 			side="Civilian";
 			flags=2;
 			class Attributes
 			{
 			};
-			id=23;
-			type="C_Boat_Civil_01_police_F";
-			atlOffset=3.6356668;
+			id=31;
+			type="C_Boat_Civil_01_F";
+			atlOffset=16.219156;
 		};
-		class Item6
+		class Item5
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2046.9536,1.2435327,1255.8635};
+				position[]={1752.5311,1.3881395,1349.4653};
+				angles[]={0,6.244103,0};
 			};
-			side="Empty";
+			side="Civilian";
+			flags=2;
+			class Attributes
+			{
+				name="gscooter";
+				disableSimulation=1;
+			};
+			id=32;
+			type="C_Scooter_Transport_01_F";
+			atlOffset=34.432396;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit""],[2]],[[],[]],[[],[]],[[],[]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
+		};
+		class Item6
+		{
+			dataType="Group";
+			side="Civilian";
+			class Entities
+			{
+				items=1;
+				class Item0
+				{
+					dataType="Object";
+					class PositionInfo
+					{
+						position[]={1752.5311,0.0014388561,1349.5154};
+						angles[]={0,6.244103,0};
+					};
+					side="Civilian";
+					flags=3;
+					class Attributes
+					{
+					};
+					id=34;
+					type="C_Nikos";
+					atlOffset=34.432396;
+				};
+			};
 			class Attributes
 			{
 			};
-			id=28;
-			type="C_Rubberboat";
-			atlOffset=2.9114776;
+			class CrewLinks
+			{
+				class LinkIDProvider
+				{
+					nextID=1;
+				};
+				class Links
+				{
+					items=1;
+					class Item0
+					{
+						linkID=0;
+						item0=34;
+						item1=32;
+						class CustomData
+						{
+							role=1;
+						};
+					};
+				};
+			};
+			id=33;
+			atlOffset=34.432396;
 		};
 		class Item7
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2039.964,1.3881395,1273.0781};
+				position[]={4369.7441,-17.581753,2287.9443};
+				angles[]={0,1.8927222,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
+				disableSimulation=1;
 			};
-			id=29;
-			type="C_Scooter_Transport_01_F";
-			atlOffset=3.1018498;
+			id=45;
+			type="B_Heli_Transport_03_F";
+			atlOffset=-0.2956562;
+			class CustomAttributes
+			{
+				class Attribute0
+				{
+					property="ammoBox";
+					expression="[_this,_value] call bis_fnc_initAmmoBox;";
+					class Value
+					{
+						class data
+						{
+							class type
+							{
+								type[]=
+								{
+									"STRING"
+								};
+							};
+							value="[[[[""FirstAidKit"",""Medikit""],[10,1]],[[],[]],[[""ToolKit""],[1]],[[""B_Parachute""],[20]]],false]";
+						};
+					};
+				};
+				nAttributes=1;
+			};
 		};
 		class Item8
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={2044.5031,1.2970161,1278.6509};
+				position[]={4389.5923,-17.042667,2305.9697};
+				angles[]={0,2.1790805,0};
 			};
 			side="Empty";
+			flags=4;
 			class Attributes
 			{
 			};
-			id=30;
-			type="C_Boat_Civil_01_rescue_F";
-			atlOffset=3.6319556;
+			id=46;
+			type="B_Plane_CAS_01_dynamicLoadout_F";
+			atlOffset=-3.4332275e-005;
 		};
 	};
 };
