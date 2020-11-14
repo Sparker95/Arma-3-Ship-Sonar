@@ -2,9 +2,9 @@ diag_log format ["FLS: Add action to player: %1", player];
 
 player addAction
     [
-        "Toggle Sonar",	// title
+        "Sonar Options",	// title
         {
-            call FLS_fnc_actionToggle;
+            call FLS_fnc_ui_createSettingsPanel;
         },
         nil,		// arguments
         1.5,		// priority

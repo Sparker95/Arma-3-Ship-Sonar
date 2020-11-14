@@ -7,7 +7,8 @@
 params ["_display", ["_parentGroup", controlNull]];
 
 // Delete old graph if it exists
-if (!isNil {uiNamespace getVariable "FLS_graphGroup"}) then {
+private _oldGraph = uiNamespace getVariable ["FLS_graphGroup", controlNull];
+if (!isNull _oldGraph) then {
     [uiNamespace getVariable "FLS_graphGroup"] call FLS_fnc_ui_graphDelete;
 };
 

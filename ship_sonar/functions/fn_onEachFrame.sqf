@@ -10,16 +10,16 @@ if (FLS_active && !isGamePaused) then {
         // Update if active
         switch (FLS_mode) do {
             case "basic": { call FLS_fnc_updateBasicFLS; };
-            case "sector": { call FLS_fnc_updateSectorSonar; };
+            case "sectorImage": { call FLS_fnc_updateSectorSonar; };
         };
     };
 };
 
 
 // Add action to player if he doesn't have it
-private _added = player getVariable ["FLS_toggleActionAdded", false];
+private _added = player getVariable ["FLS_actionAdded", false];
 if (!_added) then {
-    _actionID = call FLS_fnc_addActionToggle;
-    player setVariable ["FLS_toggleActionAdded", true];
-    player addEventHandler ["Respawn", { player setVariable ["FLS_toggleActionAdded",false]; }];
+    _actionID = call FLS_fnc_addAction;
+    player setVariable ["FLS_actionAdded", true];
+    player addEventHandler ["Respawn", { player setVariable ["FLS_actionAdded",false]; }];
 };

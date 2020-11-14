@@ -7,7 +7,8 @@
 params ["_display", ["_parentGroup", controlNull]];
 
 // Delete old graph if it exists
-if (!isNil {uiNamespace getVariable "FLS_graphPolarGroup"}) then {
+private _oldGraph = uins getv "FLS_graphPolarGroup";
+if (!isNull _oldGraph) then {
     [uiNamespace getVariable "FLS_graphPolarGroup"] call FLS_fnc_ui_graphPolarDelete;
 };
 
@@ -17,12 +18,12 @@ uiNamespace setVariable ["FLS_graphPolarGroup", _ctrlGroup];
 // Size of this control
 private _width = 0.8;
 private _height = 0.6;
-_ctrlGroup ctrlSetPosition [safeZoneX, safeZoneY + safeZoneH - _height, _width, _height];
+_ctrlGroup ctrlSetPosition [0, 0, _width, _height];
 
 // Background
 private _ctrlBackground = _display ctrlCreate ["RscText", -1, _ctrlGroup];
 _ctrlBackground ctrlSetPosition [0, 0, _width, _height];
-_ctrlBackground ctrlSetBackgroundColor [22/255, 67/255, 140/255, 1];
+_ctrlBackground ctrlSetBackgroundColor [0,0,0,0]; //[22/255, 67/255, 140/255, 1];
 _ctrlBackground ctrlCommit 0;
 _ctrlGroup setVariable ["ctrlBackground", _ctrlBackground];
 

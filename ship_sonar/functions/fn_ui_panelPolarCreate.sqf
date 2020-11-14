@@ -1,17 +1,17 @@
 #include "common.hpp"
 
-// Creates whole panel with UI
+// Creates whole polar panel with UI
 
 params ["_display"];
 
 // Delete old panel if it exists
-private _oldPanel = uins getv ["FLS_panelGroup", controlNull];
+private _oldPanel = uiNamespace getVariable ["FLS_panelGroup", controlNull];
 if (!isNull _oldPanel) then {
     [_oldPanel] call FLS_fnc_ui_panelDelete;
 };
 
-private _panelWidth = 0.5;
-private _panelHeight = 0.58;
+private _panelWidth = 0.85;
+private _panelHeight = 0.55;
 private _offsetX = 0.03;
 private _offsetY = _offsetX * safeZoneW / safeZoneH;
 
@@ -27,28 +27,26 @@ _ctrlBackground ctrlSetBackgroundColor [22/255, 67/255, 140/255, 0.95];
 _ctrlBackground ctrlCommit 0;
 _panel setVariable ["ctrlBackground", _ctrlBackground];
 
-private _graph = [_display, _panel] call FLS_fnc_ui_graphCreate;
+// Graph
+private _graph = [_display, _panel] call FLS_fnc_ui_graphPolarCreate;
 _panel setVariable ["FLS_graph", _graph];
 
+// Text for other indicators
+private _textRange = _display ctrlCreate ["RscText", -1, _panel];
+_textRange ctrlSetText "RNG 400 M";
+_textRange ctrlSetPosition [0, -0.03, 0.2, 0.12];
 
-// Create labels for text
-private _textDepth = _display ctrlCreate ["RscTextMulti", -1, _panel];
-_textDepth ctrlSetText "DEP";
-_textDepth ctrlSetPosition [0, 0.45, 0.15, 0.12];
+private _textSpeed = _display ctrlCreate ["RscText", -1, _panel];
+_textSpeed ctrlSetText "SPD 12.3";
+_textSpeed ctrlSetPosition [0.62, -0.03, 0.2, 0.12];
 
-private _textSpeed = _display ctrlCreate ["RscTextMulti", -1, _panel];
-_textSpeed ctrlSetText "SPD";
-_textSpeed ctrlSetPosition [0.2, 0.45, 0.15, 0.12];
+private _textUnitsSpeed = _display ctrlCreate ["RscText", -1, _panel];
+_textUnitsSpeed ctrlSetText "               kt";
+_textUnitsSpeed ctrlSetPosition [0.62, -0.03, 0.2, 0.12];
 
-private _textHeading = _display ctrlCreate ["RscTextMulti", -1, _panel];
-_textHeading ctrlSetText "HDG";
-_textHeading ctrlSetPosition [0.2*2, 0.45, 0.15, 0.12];
-
-// Just a line with units, so that unit text stays at a fixed place,
-// Because we don't use a monospace font
-private _textUnits = _display ctrlCreate ["RscTextMulti", -1, _panel];
-_textUnits ctrlSetText "\n        M                kt";
-_textUnits ctrlSetPosition [0, 0.45, 0.5, 0.12];
+private _textHeading = _display ctrlCreate ["RscText", -1, _panel];
+_textHeading ctrlSetText "HDG 275";
+_textHeading ctrlSetPosition [0.62, 0.03, 0.2, 0.12];
 
 {
     _x ctrlSetFont "PuristaBold";
@@ -56,12 +54,10 @@ _textUnits ctrlSetPosition [0, 0.45, 0.5, 0.12];
     //_x ctrlSetBackgroundColor [0.1, 0.1, 0.1, 1];
     _x ctrlSetFontHeight 0.06;
     _x ctrlCommit 0;
-} forEach [_textDepth, _textSpeed, _textHeading, _textUnits];
+} forEach [_textRange, _textSpeed, _textHeading, _textUnitsSpeed];
 
 _panel setVariable ["ctrlSpeed", _textSpeed];
-_panel setVariable ["ctrlDepth", _textDepth];
+_panel setVariable ["ctrlRange", _textRange];
 _panel setVariable ["ctrlHeading", _textHeading];
 
 _panel ctrlCommit 0;
-
-_panel;

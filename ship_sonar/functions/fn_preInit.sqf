@@ -3,6 +3,8 @@
 // Initialize variables
 FLS_active = false;
 FLS_mode = "basic";
+FLS_modes = ["basic", "sectorImage", "sectorDepth"];
+FLS_modeNames = ["Basic Forward", "Sector Image", "Sector Depth"]; // Must match to FLS_modes
 FLS_pingTimer = 0;
 FLS_indicatorUpdateTimer = 0;
 FLS_scaleUpdateTimer = 0;
@@ -14,8 +16,9 @@ FLS_nextScanlineID = 0;
 FLS_range = 100;
 FLS_pingInterval = 0.1;
 FLS_forceRefreshGrid = false;
+FLS_gammaOptions = [1, 1.5, 2.0, 2.5, 5, 10];
+FLS_gamma = 2.5;
 [FLS_range] call FLS_fnc_setRange;
-
 FLS_rangeOptions = [50, 100, 200, 400];
 
 uiNamespace setVariable ["FLS_settingsDisplay", displayNull];

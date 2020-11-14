@@ -12,11 +12,11 @@ class CfgFunctions {
             class updateSectorSonar {  };
             class onEachFrame {  };
             class preInit { preInit = 1;  };
-            class actionToggle {  };
-            class addActionToggle {  };
+            class addAction {  };
             class setRange {};
             class setMode {};
             class setPower {};
+            class createPanelForMode {};
 
             // Graph plotter control
             class ui_graphCreate {  };
@@ -41,9 +41,11 @@ class CfgFunctions {
 
             // Whole panel
             class ui_panelCreate {  };
+            class ui_panelPolarCreate {  };
             class ui_panelDelete {  };
 
             // Settings panel
+            class ui_createSettingsPanel {  };
             class ui_createComboBox {  };
         };
 	};

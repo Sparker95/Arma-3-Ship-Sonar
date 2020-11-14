@@ -1,10 +1,11 @@
 private _pingInterval = 1/80;
-private _scanDirStart = -70;
+private _scanDirStart = -90;
 private _dirStep = 1;
-private _nScanlines = 70*2 + 1;
-private _veh = vehicle player;
+private _nScanlines = 90*2 + 1;
 
 private _graph = uiNamespace getVariable "FLS_graphPolarGroup";
+private _panel = uiNamespace getVariable "FLS_panelGroup";
+private _veh = vehicle player;
 
 FLS_pingTimer = FLS_pingTimer + diag_deltaTime;
 
@@ -12,6 +13,12 @@ private _sensorPos = _veh getVariable ["FLS_sensorPos", [0, 0, 0]];
 if (_sensorPos isEqualTo [0, 0, 0]) then {
     _sensorPos = [_veh] call FLS_fnc_findSensorPos;
     _veh setVariable ["FLS_sensorPos", +_sensorPos];
+};
+
+_sectorColorFn = {
+    private _cos = _this;
+    private _alpha = (_cos^FLS_gamma) max 0.04;
+    [50/255, 240/255, 20/255, _alpha];
 };
 
 private _nPingsThisUpdate = 0;
@@ -30,8 +37,7 @@ while {FLS_pingTimer > 0} do {
     private _scanlinePlotData = _scanData apply {
         _x params ["_angle", "_distance", "_cos"];
 
-        //private _alpha = _cos; //(linearConversion [0, 1, _cos, -0.9, 6, false]) min 1;
-        private _color = _cos call FLS_sectorColorFn; //[43/255, 210/255, 0, _alpha];
+        private _color = _cos call _sectorColorFn;
         [_scanDir, _distance, _color];
     };
     [_graph, FLS_nextScanlineID, _scanlinePlotData] call FLS_fnc_ui_graphPolarSetScanline;
@@ -41,6 +47,43 @@ while {FLS_pingTimer > 0} do {
     FLS_nextScanlineID = (FLS_nextScanlineID + 1) mod _nScanlines;
 };
 
+// Update graph range
+[_graph, FLS_range] call FLS_fnc_ui_graphPolarSetLimit;
+
+// Refresh graph
 if (_nPingsThisUpdate != 0) then {
     [_graph, 1.0] call FLS_fnc_ui_graphPolarRefresh;
+};
+
+// Update indicators
+FLS_indicatorUpdateTimer = FLS_indicatorUpdateTimer + diag_deltaTime;
+if (FLS_indicatorUpdateTimer > 0.1) then {
+    // Update indicators at the bottom of the screen
+    /*
+    _panel setVariable ["ctrlSpeed", _textSpeed];
+    _panel setVariable ["ctrlDepth", _textDepth];
+    _panel setVariable ["ctrlHeading", _textHeading];
+    */
+    private _ctrlSpeed = _panel getVariable "ctrlSpeed";
+    private _ctrlRange = _panel getVariable "ctrlRange";
+    private _ctrlHeading = _panel getVariable "ctrlHeading";
+
+    // Speed
+    private _speed_kmh = speed _veh;
+    private _speed_knots = abs (_speed_kmh * 0.539957);
+    private _textSpeed = "SPD ";
+    _textSpeed = _textSpeed + (_speed_knots toFixed 1);
+    _ctrlSpeed ctrlSetText _textSpeed;
+
+    // Heading
+    private _dir = round direction vehicle player;
+    private _textHeading = format ["HDG %1", _dir];
+    _ctrlHeading ctrlSetText _textHeading;
+
+    // Range
+    private _range = FLS_range;
+    private _textRange = format ["RNG %1 M", _range];
+    _ctrlRange ctrlSetText _textRange;
+
+    FLS_indicatorUpdateTimer = FLS_indicatorUpdateTimer - 0.1;
 };
