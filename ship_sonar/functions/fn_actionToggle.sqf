@@ -1,7 +1,7 @@
 // Called when toggle action is chosen
 
 if (FLS_active) then {
-    call FLS_fnc_deactivate;
+    [false] call FLS_fnc_setPower;
 } else {
-    call FLS_fnc_activate;
+    [true] call FLS_fnc_setPower;
 };

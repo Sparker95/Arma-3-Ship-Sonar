@@ -9,3 +9,8 @@
 #define ASP_SCOPE_START(name) ;
 #define ASP_SCOPE_END(name) ;
 #endif
+
+// I hate long names
+#define setv setVariable
+#define getv getVariable
+#define uins uiNamespace

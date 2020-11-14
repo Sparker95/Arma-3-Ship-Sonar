@@ -12,7 +12,7 @@ FLS_pingTimer = FLS_pingTimer + diag_deltaTime;
 // Set this to true if we have performed a scan during this update
 private _pinged = false;
 
-if (FLS_pingTimer > 0.2) then {
+if (FLS_pingTimer > FLS_pingInterval) then {
     // We must send a ping and update the graph
 
     #ifdef FLS_DEBUG
@@ -28,7 +28,7 @@ if (FLS_pingTimer > 0.2) then {
     private _scanData = [ 
                             vehicle player,
                             0, // Direction offset - 0 - we scan directly ahead 
-                            100, // Distance
+                            FLS_range, // Distance
                             _sensorPos,
                             selectRandom FLS_positionsEndLocal_basicFLS
     ] call FLS_fnc_scan;
@@ -67,7 +67,7 @@ if (FLS_pingTimer > 0.2) then {
         FLS_lastDepth = -1;
     };
 
-    FLS_pingTimer = FLS_pingTimer - 0.2;
+    FLS_pingTimer = FLS_pingTimer - FLS_pingInterval;
     FLS_graphRefreshPlot = true;
     _pinged = true;
 };
@@ -112,7 +112,7 @@ if (FLS_indicatorUpdateTimer > 0.1) then {
 // We don't want to change scale if we've sent ping during this update
 // Because it has to replot the data several times
 FLS_scaleUpdateTimer = FLS_scaleUpdateTimer + diag_deltaTime;
-if (FLS_scaleUpdateTimer > 0.8) then {
+if (FLS_scaleUpdateTimer > 0.8 || FLS_forceRefreshGrid) then {
     private _scanData = FLS_lastScanData;
 
     // If there is no ping return, set max scale
@@ -126,23 +126,23 @@ if (FLS_scaleUpdateTimer > 0.8) then {
             // 100, 50, 20, 10, 4
             case (_depth > 30): {
                 [_graph, 25, 25] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, 100, 100] call FLS_fnc_ui_graphSetLimits;
+                [_graph, FLS_range, 100] call FLS_fnc_ui_graphSetLimits;
             };
             case (_depth > 16): {
                 [_graph, 25, 10] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, 100, 40] call FLS_fnc_ui_graphSetLimits;
+                [_graph, FLS_range, 40] call FLS_fnc_ui_graphSetLimits;
             };
             case (_depth > 8): {
                 [_graph, 25, 5] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, 100, 20] call FLS_fnc_ui_graphSetLimits;
+                [_graph, FLS_range, 20] call FLS_fnc_ui_graphSetLimits;
             };
             case (_depth > 3.5): {
                 [_graph, 25, 2.5] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, 100, 10] call FLS_fnc_ui_graphSetLimits;
+                [_graph, FLS_range, 10] call FLS_fnc_ui_graphSetLimits;
             };
             default {
                 [_graph, 25, 1] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, 100, 4] call FLS_fnc_ui_graphSetLimits;
+                [_graph, FLS_range, 4] call FLS_fnc_ui_graphSetLimits;
             };
         };
     };
@@ -153,8 +153,9 @@ if (FLS_scaleUpdateTimer > 0.8) then {
 
 // Refresh the graph, but if we didn't ping during this update
 // Ping and graph plot are quite costly, so we want to make sure we don't do them at same update
-if ((FLS_graphRefreshGrid || FLS_graphRefreshPlot) && !_pinged) then {
+if ( ((FLS_graphRefreshGrid || FLS_graphRefreshPlot) && !_pinged) || FLS_forceRefreshGrid) then {
     [_graph, FLS_graphRefreshGrid, FLS_graphRefreshPlot] call FLS_fnc_ui_graphRefresh;
     FLS_graphRefreshGrid = false;
     FLS_graphRefreshPlot = false;
+    FLS_forceRefreshGrid = false;
 };

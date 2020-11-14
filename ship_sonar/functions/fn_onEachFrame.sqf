@@ -2,13 +2,16 @@
 
 // Called on each frame
 
-if (FLS_active) then {
+if (FLS_active && !isGamePaused) then {
     // Deactivate if player isn't in a boat any more
     if (!((vehicle player) isKindOf "Ship_F")) then {
         call FLS_fnc_deactivate;
     } else {
         // Update if active
-        call FLS_fnc_update;
+        switch (FLS_mode) do {
+            case "basic": { call FLS_fnc_updateBasicFLS; };
+            case "sector": { call FLS_fnc_updateSectorSonar; };
+        };
     };
 };
 
