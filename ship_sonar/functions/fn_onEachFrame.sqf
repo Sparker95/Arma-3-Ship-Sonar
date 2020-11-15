@@ -11,6 +11,7 @@ if (FLS_active && !isGamePaused) then {
         switch (FLS_mode) do {
             case "basic": { call FLS_fnc_updateBasicFLS; };
             case "sectorImage": { call FLS_fnc_updateSectorSonar; };
+            case "sectorDepth": { call FLS_fnc_updateSectorSonar; };
         };
     };
 };

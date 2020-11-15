@@ -116,36 +116,38 @@ if (FLS_scaleUpdateTimer > 0.8 || FLS_forceRefreshGrid) then {
     private _scanData = FLS_lastScanData;
 
     // If there is no ping return, set max scale
-    if (count _scanData == 0) then {
 
-    } else {
-        //private _allDepth = _scanData apply {_x#1};
-        //private _maxDepth = selectMax _allDepth;
-        private _depth = FLS_lastDepth;
-        switch true do {
-            // 100, 50, 20, 10, 4
-            case (_depth > 30): {
-                [_graph, 25, 25] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, FLS_range, 100] call FLS_fnc_ui_graphSetLimits;
+    FLS_maxDepth = FLS_maxDepthUser;
+
+    // Calculate depth if we are setting it automatically
+    private _ystep = 10;
+    if (FLS_maxDepthUser == -1) then {
+        private _actualDepth = FLS_lastDepth;
+        switch (true) do {
+            case (_actualDepth > 30): {
+                FLS_maxDepth = 100;
             };
-            case (_depth > 16): {
-                [_graph, 25, 10] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, FLS_range, 40] call FLS_fnc_ui_graphSetLimits;
+            case (_actualDepth > 16): {
+                FLS_maxDepth = 40;
             };
-            case (_depth > 8): {
-                [_graph, 25, 5] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, FLS_range, 20] call FLS_fnc_ui_graphSetLimits;
+            case (_actualDepth > 8): {
+                FLS_maxDepth = 20;
             };
-            case (_depth > 3.5): {
-                [_graph, 25, 2.5] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, FLS_range, 10] call FLS_fnc_ui_graphSetLimits;
+            case (_actualDepth > 3.5): {
+                FLS_maxDepth = 10;
             };
             default {
-                [_graph, 25, 1] call FLS_fnc_ui_graphSetGridStep;
-                [_graph, FLS_range, 4] call FLS_fnc_ui_graphSetLimits;
+                FLS_maxDepth = 2;
             };
         };
     };
+
+    // Grid step
+    private _ystep = FLS_maxDepth/4;
+    private _xstep = FLS_range/4;
+    
+    [_graph, _xstep, _ystep] call FLS_fnc_ui_graphSetGridStep;
+    [_graph, FLS_range, FLS_maxDepth] call FLS_fnc_ui_graphSetLimits;
 
     FLS_graphRefreshGrid = true;
     FLS_scaleUpdateTimer = FLS_scaleUpdateTimer - 0.8;

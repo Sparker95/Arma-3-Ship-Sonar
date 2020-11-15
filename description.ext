@@ -17,6 +17,7 @@ class CfgFunctions {
             class setMode {};
             class setPower {};
             class createPanelForMode {};
+            class updateColorLUT {};
 
             // Graph plotter control
             class ui_graphCreate {  };
@@ -42,6 +43,7 @@ class CfgFunctions {
             // Whole panel
             class ui_panelCreate {  };
             class ui_panelPolarCreate {  };
+            class ui_panelPolarDrawGradient {};
             class ui_panelDelete {  };
 
             // Settings panel

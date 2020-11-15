@@ -1,6 +1,6 @@
 params ["_ctrlGroup", "_dirStepDeg"];
 
-private _dirStepRad = _dirStepDeg/2/pi;
+private _dirStepRad = _dirStepDeg/180*pi;
 private _scanlinesPending = _ctrlGroup getVariable "plotScanlinesPending";
 
 
@@ -12,7 +12,7 @@ private _getNewPoint = {
     if (_nextPointID >= (count _dataControls)) then {
         // There are no more points, add one more
         _ctrlPoint = (_ctrlGroup getVariable "parentDisplay") ctrlCreate ["RscPicture", -1, _ctrlGroup];
-        _ctrlPoint ctrlSetText "ship_sonar\Dot.paa";
+        _ctrlPoint ctrlSetText "\ship_sonar\Dot.paa";
         _dataControls pushBack _ctrlPoint;
         _return = _ctrlPoint;
     } else {
@@ -56,7 +56,7 @@ while {_scanlineID < _nScanlines} do { //  forEach _scanlinesPending;
                 private _ypos = _originy - 0.5*_distRel*_height*(cos _angle);
                 private _ctrlPoint = call _getNewPoint;
                 // _distRel * _dirStepRad * 0.17;
-                private _pointSizeRel = sqrt (_distRel*_dirStepRad*0.004);
+                private _pointSizeRel = sqrt (_distRel*_dirStepRad*0.04);
                 POINT_SIZE_REL_TO_UI(_pointSizeRel) params ["_pointWidth", "_pointHeight"];
                 _ctrlPoint ctrlSetPosition [_xpos - _pointWidth/2, _ypos - _pointHeight/2, _pointWidth, _pointHeight];
                 _ctrlPoint ctrlSetTextColor _color;

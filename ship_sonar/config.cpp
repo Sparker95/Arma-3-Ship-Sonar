@@ -28,33 +28,49 @@ class CfgFunctions {
             file = "ship_sonar\functions";
 
             // Scanning ang other functions
-            class findSensorPos { _HEADER };
-            class scan { _HEADER };
-            class update { _HEADER };
-            class onEachFrame { _HEADER };
-            class preInit { preInit = 1; _HEADER };
-            class activate { _HEADER };
-            class deactivate { _HEADER };
-            class actionToggle { _HEADER };
-            class addActionToggle { _HEADER };
+            class findSensorPos {  };
+            class scan {  };
+            class updateBasicFLS {  };
+            class updateSectorSonar {  };
+            class onEachFrame {  };
+            class preInit { preInit = 1;  };
+            class addAction {  };
+            class setRange {};
+            class setMode {};
+            class setPower {};
+            class createPanelForMode {};
+            class updateColorLUT {};
 
             // Graph plotter control
-            class ui_graphCreate { _HEADER };
-            class ui_graphDelete { _HEADER };
-            class ui_graphToUI { _HEADER };
+            class ui_graphCreate {  };
+            class ui_graphDelete {  };
+            class ui_graphToUI { headerType = -1; };
 
-            class ui_graphPlotData { _HEADER };
-            class ui_graphPlotAxes { _HEADER };
-            class ui_graphUpdateLables { _HEADER };
-            class ui_graphRefresh { _HEADER };
+            class ui_graphPlotData {  };
+            class ui_graphPlotAxes {  };
+            class ui_graphUpdateLables {  };
+            class ui_graphRefresh {  };
 
-            class ui_graphSetDataValues { _HEADER };
-            class ui_graphSetLimits { _HEADER };
-            class ui_graphSetGridStep { _HEADER };
+            class ui_graphSetDataValues {  };
+            class ui_graphSetLimits {  };
+            class ui_graphSetGridStep {  };
+
+            // Polar graph plotter control
+            class ui_graphPolarCreate {  };
+            class ui_graphPolarDelete {  };
+            class ui_graphPolarRefresh {  };
+            class ui_graphPolarSetScanline {  };
+            class ui_graphPolarSetLimit {  };
 
             // Whole panel
-            class ui_panelCreate { _HEADER };
-            class ui_panelDelete { _HEADER };
+            class ui_panelCreate {  };
+            class ui_panelPolarCreate {  };
+            class ui_panelPolarDrawGradient {};
+            class ui_panelDelete {  };
+
+            // Settings panel
+            class ui_createSettingsPanel {  };
+            class ui_createComboBox {  };
         };
 	};
 };

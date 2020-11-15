@@ -12,7 +12,7 @@ uiNamespace setVariable ["FLS_settingsDisplay", _display];
 private _textColor = [0.9, 0.9, 0.9, 1];
 
 private _width = 0.33;
-private _height = 0.33;
+private _height = 0.37;
 private _offsetX = 0.03;
 private _offsetY = _offsetX * safeZoneW / safeZoneH;
 private _ctrlGroup = _display ctrlCreate ["RscControlsGroupNoScrollbars", -1];
@@ -45,7 +45,7 @@ private _comboWidth = 0.2;
 private _ystep = 0.06;
 
 // POWER
-private _groupPower = [_display, _ctrlGroup, "POWER", ["OFF", "ON"], _xpos, _yoffset + _row*_ystep, _rowWidth, 0.1] call FLS_fnc_ui_createComboBox;
+private _groupPower = [_display, _ctrlGroup, "POWER", ["OFF", "ON"], _xpos, _yoffset + _row*_ystep, _rowWidth, 0.11] call FLS_fnc_ui_createComboBox;
 private _comboPower = _groupPower getv "combobox";
 _ctrlGroup setv ["comboPower", _comboPower];
 _row = _row + 1;
@@ -59,14 +59,21 @@ _row = _row + 1;
 
 // RANGE
 private _rangeTexts = FLS_rangeOptions apply {str _x};
-private _groupRange = [_display, _ctrlGroup, "RANGE", _rangeTexts, _xpos, _yoffset + _row*_ystep, _rowWidth, 0.1] call FLS_fnc_ui_createComboBox;
+private _groupRange = [_display, _ctrlGroup, "RANGE", _rangeTexts, _xpos, _yoffset + _row*_ystep, _rowWidth, 0.11] call FLS_fnc_ui_createComboBox;
 private _comboRange = _groupRange getv "combobox";
 _ctrlGroup setv ["comboRange", _comboRange];
 _row = _row + 1;
 
+// MAX DEPTH
+private _depthTexts = FLS_maxDepthOptions apply { if (_x == -1) then {"AUTO"} else {str _x}; };
+private _groupMaxDepth = [_display, _ctrlGroup, "MAX DEPTH", _depthTexts, _xpos, _yoffset + _row*_ystep, _rowWidth, 0.11] call FLS_fnc_ui_createComboBox;
+private _comboMaxDepth = _groupMaxDepth getv "combobox";
+_ctrlGroup setv ["comboMaxDepth", _comboMaxDepth];
+_row = _row + 1;
+
 // GAMMA
 private _gammaTexts = FLS_gammaOptions apply {str _x};
-private _groupGamma = [_display, _ctrlGroup, "IMAGE GAMMA", _gammaTexts, _xpos, _yoffset + _row*_ystep, _rowWidth, 0.1] call FLS_fnc_ui_createComboBox;
+private _groupGamma = [_display, _ctrlGroup, "IMAGE GAMMA", _gammaTexts, _xpos, _yoffset + _row*_ystep, _rowWidth, 0.11] call FLS_fnc_ui_createComboBox;
 private _comboGamma = _groupGamma getv "combobox";
 _ctrlGroup setv ["comboGamma", _comboGamma];
 _row = _row + 1;
@@ -76,6 +83,7 @@ _comboRange lbSetCurSel (FLS_rangeOptions find FLS_range);
 _comboPower lbSetCurSel ([0, 1] select FLS_active);
 _comboMode lbSetCurSel (FLS_modes find FLS_mode);
 _comboGamma lbSetCurSel (FLS_gammaOptions find FLS_gamma);
+_comboMaxDepth lbSetCurSel (FLS_maxDepthOptions find FLS_maxDepthUser);
 
 
 // Add event handlers to combo boxes
@@ -106,5 +114,18 @@ _comboGamma ctrlAddEventHandler ["LBSelChanged", {
     private _gamma = FLS_gammaOptions select _selectedIndex;
     if (!isNil "_gamma") then {
         FLS_gamma = _gamma;
+        [FLS_mode] call FLS_fnc_updateColorLUT;
+        if (FLS_active) then {
+            call FLS_fnc_ui_panelPolarDrawGradient;
+        };
+    };
+}];
+
+_comboMaxDepth ctrlAddEventHandler ["LBSelChanged", {
+    params ["_control", "_selectedIndex"];
+    private _maxDepth = FLS_maxDepthOptions select _selectedIndex;
+    if (!isNil "_maxDepth") then {
+        FLS_maxDepthUser = _maxDepth;
+        
     };
 }];

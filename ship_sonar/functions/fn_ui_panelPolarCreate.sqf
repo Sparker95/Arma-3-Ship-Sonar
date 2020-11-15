@@ -60,4 +60,27 @@ _panel setVariable ["ctrlSpeed", _textSpeed];
 _panel setVariable ["ctrlRange", _textRange];
 _panel setVariable ["ctrlHeading", _textHeading];
 
+private _textScaleMax = _display ctrlCreate ["RscText", -1, _panel];
+_textScaleMax ctrlSetPosition [0.774, 0.1, 0.2, 0.12];
+_textScaleMax ctrlSetFont "PuristaBold";
+_textScaleMax ctrlSetFontHeight 0.04;
+_panel setVariable ["ctrlScaleMax", _textScaleMax];
+
+private _textScaleMin = _display ctrlCreate ["RscText", -1, _panel];
+_textScaleMin ctrlSetPosition [0.774, 0.445, 0.2, 0.12];
+_textScaleMin ctrlSetFont "PuristaBold";
+_textScaleMin ctrlSetFontHeight 0.04;
+_panel setVariable ["ctrlScaleMin", _textScaleMin];
+
+_textScaleMin ctrlSetText "MIN";
+_textScaleMax ctrlSetText "MAX";
+
+{
+    _x ctrlSetTextColor [0.9, 0.9, 0.9, 1];
+    _x ctrlCommit 0;
+} forEach [_textScaleMin, _textScaleMax];
+
+// Draw gradient
+call FLS_fnc_ui_panelPolarDrawGradient;
+
 _panel ctrlCommit 0;

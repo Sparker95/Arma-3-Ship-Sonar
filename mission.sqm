@@ -8,14 +8,14 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=88;
+		nextID=90;
 	};
 	class Camera
 	{
-		pos[]={6333.9702,45.935078,6207.3218};
-		dir[]={0.43897423,-0.64113981,-0.62958759};
-		up[]={0.36680529,0.76725668,-0.52608246};
-		aside[]={-0.82035369,3.6787242e-008,-0.57198048};
+		pos[]={1607.1543,131.01604,3401.2644};
+		dir[]={0.70552665,-0.59035689,-0.39208901};
+		up[]={0.51610571,0.80707282,-0.28681985};
+		aside[]={-0.48576966,5.6554563e-007,-0.87409723};
 	};
 };
 binarizationWanted=0;
@@ -176,7 +176,7 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={6368.7905,0.27480578,6188.7119};
+						position[]={1681.4551,0.19094455,3359.2432};
 						angles[]={0,2.6337769,0};
 					};
 					side="Civilian";
@@ -187,7 +187,7 @@ class Mission
 					};
 					id=24;
 					type="C_man_1";
-					atlOffset=27.018076;
+					atlOffset=16.951321;
 				};
 			};
 			class Attributes
@@ -215,14 +215,14 @@ class Mission
 				};
 			};
 			id=22;
-			atlOffset=27.018076;
+			atlOffset=16.951321;
 		};
 		class Item4
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6368.7905,1.5703831,6188.6621};
+				position[]={1681.4551,1.4865218,3359.1934};
 				angles[]={0,2.6337769,0};
 			};
 			side="Civilian";
@@ -232,7 +232,7 @@ class Mission
 			};
 			id=31;
 			type="C_Boat_Civil_01_F";
-			atlOffset=27.018076;
+			atlOffset=16.951321;
 		};
 		class Item5
 		{
