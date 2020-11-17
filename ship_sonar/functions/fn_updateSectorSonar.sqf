@@ -1,4 +1,4 @@
-private _pingInterval = 1/60;
+private _pingInterval = (1/60)*100/FLS_scanSpeed;
 
 private _vectorsEndLocal = 0;
 private _scanDirStart = 0;

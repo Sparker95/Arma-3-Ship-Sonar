@@ -14,17 +14,19 @@ FLS_graphRefreshGrid = false;
 FLS_graphRefreshPlot = false;
 FLS_nextScanlineID = 0;
 FLS_range = 100;
+[FLS_range] call FLS_fnc_setRange;
+FLS_rangeOptions = [20, 50, 100, 200, 400];
 FLS_maxDepthOptions = [-1, 2, 4, 10, 20, 40, 100]; // -1 means auto
 FLS_maxDepthUser = -1; // Option selected by user
 FLS_maxDepth = 4; // Actual internal value used for calculations
 FLS_pingInterval = 0.1;
-[FLS_range] call FLS_fnc_setRange;
 FLS_forceRefreshGrid = false;
-FLS_gammaOptions = [1, 1.5, 2.0, 2.5, 5, 10];
-FLS_gamma = 2.5;
-FLS_rangeOptions = [50, 100, 200, 400];
+FLS_gammaOptions = [1, 1.5, 2.0, 2.5, 3];
+FLS_gamma = 1.5;
 FLS_colorLutSize = 128; // Should be enough?
 FLS_colorLut = [[0,0,0,1], [1,1,1,1]]; // Will be recalculated anyway
+FLS_scanSpeed = 100; // In percents
+FLS_scanSpeedOptions = [25, 50, 100, 150, 200];
 
 uiNamespace setVariable ["FLS_settingsDisplay", displayNull];
 

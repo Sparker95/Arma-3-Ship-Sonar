@@ -49,11 +49,12 @@ private _driver = driver _veh;
 
     ASP_SCOPE_START(processRaycastResults);
     if (count _intersections > 0) then {
-        private _posIntersectWorld = _intersections#0#0;
-        private _vectorSurfaceNormal = _intersections#0#1;
+        (_intersections#0) params ["_posIntersectWorld", "_vectorSurfaceNormal", "_object"];
         private _vectorPing = vectorNormalized (_posStartWorld vectorDiff _posEndWorld);
         private _cos = _vectorPing vectorCos _vectorSurfaceNormal; // Cos of angle between surface normal and ping vector
-        //private _cos = 0.8;
+        if (isNull _object) then {
+            _cos = _cos*(random 1);// + 0.07;
+        };
         private _distance = _posStartWorld vectorDistance _posIntersectWorld;
         _raycastData pushBack [
             _angle,

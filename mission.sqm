@@ -8,14 +8,14 @@ class EditorData
 	toggles=521;
 	class ItemIDProvider
 	{
-		nextID=90;
+		nextID=95;
 	};
 	class Camera
 	{
-		pos[]={1607.1543,131.01604,3401.2644};
-		dir[]={0.70552665,-0.59035689,-0.39208901};
-		up[]={0.51610571,0.80707282,-0.28681985};
-		aside[]={-0.48576966,5.6554563e-007,-0.87409723};
+		pos[]={6451.978,18.534521,6032.147};
+		dir[]={0.36484021,-0.93032444,-0.037376434};
+		up[]={0.92548281,0.36673364,-0.094812229};
+		aside[]={-0.10191295,-2.7779606e-008,-0.99479723};
 	};
 };
 binarizationWanted=0;
@@ -28,7 +28,8 @@ addons[]=
 	"A3_Air_F_Heli_Heli_Transport_03",
 	"ace_realisticnames",
 	"A3_Air_F_EPC_Plane_CAS_01",
-	"A3_Structures_F_Wrecks"
+	"A3_Structures_F_Wrecks",
+	"A3_Boat_F_Gamma_Boat_Civil_04"
 };
 class AddonsMetaData
 {
@@ -176,8 +177,8 @@ class Mission
 					dataType="Object";
 					class PositionInfo
 					{
-						position[]={1681.4551,0.19094455,3359.2432};
-						angles[]={0,2.6337769,0};
+						position[]={6462.6758,0.42552638,6024.6606};
+						angles[]={0,2.6337717,0};
 					};
 					side="Civilian";
 					flags=2;
@@ -187,7 +188,49 @@ class Mission
 					};
 					id=24;
 					type="C_man_1";
-					atlOffset=16.951321;
+					atlOffset=35.183998;
+					class CustomAttributes
+					{
+						class Attribute0
+						{
+							property="speaker";
+							expression="_this setspeaker _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"STRING"
+										};
+									};
+									value="Male05GRE";
+								};
+							};
+						};
+						class Attribute1
+						{
+							property="pitch";
+							expression="_this setpitch _value;";
+							class Value
+							{
+								class data
+								{
+									class type
+									{
+										type[]=
+										{
+											"SCALAR"
+										};
+									};
+									value=1.02;
+								};
+							};
+						};
+						nAttributes=2;
+					};
 				};
 			};
 			class Attributes
@@ -215,14 +258,14 @@ class Mission
 				};
 			};
 			id=22;
-			atlOffset=16.951321;
+			atlOffset=35.18359;
 		};
 		class Item4
 		{
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={1681.4551,1.4865218,3359.1934};
+				position[]={6462.6758,1.7206743,6024.6113};
 				angles[]={0,2.6337769,0};
 			};
 			side="Civilian";
@@ -232,7 +275,7 @@ class Mission
 			};
 			id=31;
 			type="C_Boat_Civil_01_F";
-			atlOffset=16.951321;
+			atlOffset=35.18359;
 		};
 		class Item5
 		{
@@ -312,17 +355,18 @@ class Mission
 			dataType="Object";
 			class PositionInfo
 			{
-				position[]={6515.1641,-26.758032,6011.021};
-				angles[]={0.022497294,0,6.2806892};
+				position[]={6515.1855,-24.191187,5998.355};
+				angles[]={0.13400638,0.10477211,0.89479542};
 			};
 			side="Empty";
 			flags=4;
 			class Attributes
 			{
+				disableSimulation=1;
 			};
-			id=84;
-			type="Land_Wreck_Traw_F";
-			atlOffset=-1.9073486e-006;
+			id=91;
+			type="C_Boat_Civil_04_F";
+			atlOffset=-0.31900024;
 		};
 	};
 };
