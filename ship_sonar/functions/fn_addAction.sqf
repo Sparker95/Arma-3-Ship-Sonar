@@ -11,7 +11,7 @@ player addAction
         false,		// showWindow
         false,		// hideOnUse
         "",			// shortcut
-        "true", 	// condition
+        "vehicle player isKindOf 'Ship_F'", 	// condition
         10,			// radius
         false,		// unconscious
         "",			// selection
