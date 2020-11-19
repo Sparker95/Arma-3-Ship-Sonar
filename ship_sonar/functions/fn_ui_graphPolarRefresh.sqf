@@ -48,8 +48,8 @@ while {_scanlineID < _nScanlines} do { //  forEach _scanlinesPending;
 
         private _nextPointID = 0;
 
-        {
-            _x params ["_angle", "_distance", "_color"];
+        for "_i" from ((count _values) - 1) to 0 step -1 do {
+            (_values select _i) params ["_angle", "_distance", "_color"];
             if (_distance <= _distlim) then {
                 private _distRel = _distance/_distLim*0.975; // Slight correction for grid scale, it's not perfect
                 private _xpos = _originx + 0.5*_distRel*_width*(sin _angle);
@@ -63,7 +63,7 @@ while {_scanlineID < _nScanlines} do { //  forEach _scanlinesPending;
                 _ctrlPoint ctrlShow true;
                 _ctrlPoint ctrlCommit 0;
             }; 
-        } forEach _values;
+        };
 
         // Reset the flag
         _scanlinesPending set [_scanlineID, false];
