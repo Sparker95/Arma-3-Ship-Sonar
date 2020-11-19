@@ -4,8 +4,8 @@
 
 if (FLS_active && !isGamePaused) then {
     // Deactivate if player isn't in a boat any more
-    if (false) then {
-        call FLS_fnc_deactivate;
+    if (!((vehicle player) isKindOf "Ship_F")) then {
+        [false] call FLS_fnc_setPower;
     } else {
         // Update if active
         switch (FLS_mode) do {
