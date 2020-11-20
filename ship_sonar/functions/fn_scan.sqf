@@ -55,7 +55,7 @@ private _driver = driver _veh;
         if (isNull _object) then {
             _cos = _cos*(random 1);// + 0.07;
         } else {
-            _cos = 1.3*_cos + 0.0;
+            _cos = 1.3*_cos;
         };
         private _distance = _posStartWorld vectorDistance _posIntersectWorld;
         _raycastData pushBack [
