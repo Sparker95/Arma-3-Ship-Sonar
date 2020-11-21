@@ -12,7 +12,7 @@ player addAction
         false,		// hideOnUse
         "",			// shortcut
         "vehicle player isKindOf 'Ship_F'", 	// condition
-        10,			// radius
+        -1,			// radius
         false,		// unconscious
         "",			// selection
         ""			// memoryPoint
