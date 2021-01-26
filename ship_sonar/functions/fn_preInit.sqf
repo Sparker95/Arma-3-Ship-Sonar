@@ -1,5 +1,8 @@
 // Called before mission start
 
+// Bail if weh ave no interface
+if (!hasInterface) exitWith {};
+
 // Initialize variables
 FLS_active = false;
 FLS_mode = "basic";

@@ -18,9 +18,11 @@ if (FLS_active && !isGamePaused) then {
 
 
 // Add action to player if he doesn't have it
-private _added = player getVariable ["FLS_actionAdded", false];
-if (!_added) then {
-    _actionID = call FLS_fnc_addAction;
-    player setVariable ["FLS_actionAdded", true];
-    player addEventHandler ["Respawn", { player setVariable ["FLS_actionAdded",false]; }];
+if (!isNull player) then {
+    private _added = player getVariable ["FLS_actionAdded", false];
+    if (!_added) then {
+        _actionID = call FLS_fnc_addAction;
+        player setVariable ["FLS_actionAdded", true];
+        player addEventHandler ["Respawn", { player setVariable ["FLS_actionAdded",false]; }];
+    };
 };
